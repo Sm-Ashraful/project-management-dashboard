@@ -5,41 +5,28 @@ import {
   HomeOutlined,
   SettingOutlined,
 } from "@ant-design/icons";
+import Link from "next/link";
 
 const items = [
   {
     key: "home",
-    label: "Home",
+    label: <a href={"/"}>Home</a>,
     icon: <HomeOutlined />,
   },
   {
     key: "project",
-    label: "Project Overview",
+    label: <a href="/project">Project Overview</a>,
     icon: <SettingOutlined />,
   },
   {
     key: "task",
-    label: "Task Management",
+    label: <a href={"/task-management"}>Task Management</a>,
     icon: <AppstoreOutlined />,
-    children: [
-      {
-        key: "todo",
-        label: "To Do",
-      },
-      {
-        key: "process",
-        label: "In Process",
-      },
-      {
-        key: "done",
-        label: "Complete",
-      },
-    ],
   },
 
   {
     key: "loin",
-    label: "User",
+    label: <a href={"/auth"}>User</a>,
     icon: <SettingOutlined />,
   },
 ];

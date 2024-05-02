@@ -3,6 +3,7 @@ import Dashboard from "@/UI/Layout/Dashboard";
 import { fetchData, fetchSingleData } from "@/lib/fetchProjectData";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
+// import { v4 as uuidv4 } from "uuid";
 import {
   Card,
   Typography,
@@ -18,6 +19,7 @@ import {
 } from "antd";
 import { EditOutlined, PlusOutlined, SettingFilled } from "@ant-design/icons";
 import ModalBox from "@/components/Modal";
+import TaskCard from "@/components/Task-card";
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -51,20 +53,23 @@ const ProjectDetailsPage = ({ params }) => {
 
   const handleOk = () => {
     const newMember = {
-      id: Math.floor(Math.random() * 10000),
+      id: Date.now(),
       name: newMemberName,
       role: newMemberRole,
     };
     setProjectData({
       ...projectData,
-      teamMembers: [...project.teamMembers, newMember],
+      teamMembers: [...projectData.teamMembers, newMember],
     });
 
     setTimeout(() => {
       message.success("Member added (simulated API call)");
       queryClient.invalidateQueries(["projectData", id]); // Trigger Refetch
     }, 1000);
+
     setIsModalOpen(false);
+    setNewMemberName("");
+    setNewMemberRole("");
   };
 
   const handleCancel = () => {
@@ -85,7 +90,11 @@ const ProjectDetailsPage = ({ params }) => {
           </Flex>
         </Col>
         <Col span={24}>
-          <Flex align="center" justify="space-between">
+          <Flex
+            align="center"
+            justify="space-between"
+            className="border-b pb-5"
+          >
             <Flex align="center">
               <Title level={3} className="!mb-0">
                 {project?.name}
@@ -125,34 +134,36 @@ const ProjectDetailsPage = ({ params }) => {
               onChange={(e) => setNewMemberRole(e.target.value)}
             />
           </ModalBox>
+          <Flex vertical className="mt-8">
+            <Descriptions title="Project Description" />
+            {projectData.description}
+          </Flex>
+          <Card
+            title="Project Details"
+            style={{ marginBottom: 20, marginTop: 20 }}
+          >
+            <Descriptions bordered column={2} size="small">
+              <Descriptions.Item label="Start Date">
+                {projectData.startDate}
+              </Descriptions.Item>
+              <Descriptions.Item label="End Date">
+                {projectData.dueDate}
+              </Descriptions.Item>
+            </Descriptions>
+          </Card>
+          <Flex justify="space-between" align="center" className="mt-8">
+            <Title level={4}>Tasks</Title>
+            {/* Task list would go here, potentially with its own component */}
+
+            <Button type="primary">Add New Task</Button>
+          </Flex>
+          <div className="grid sm:grid-cols-2 gap-4 pt-5">
+            {projectData.tasks.map((task) => {
+              return <TaskCard task={task} key={task.id} />;
+            })}
+          </div>
         </Col>
       </Row>
-      <Card title="Project Details" style={{ marginBottom: 20 }}>
-        <Paragraph>{projectData.description}</Paragraph>
-
-        <Descriptions bordered column={2} size="small">
-          <Descriptions.Item label="Start Date">
-            {projectData.startDate}
-          </Descriptions.Item>
-          <Descriptions.Item label="End Date">
-            {projectData.dueDate}
-          </Descriptions.Item>
-          <Descriptions.Item label="Team Members">
-            {projectData.teamMembers.map((member) => (
-              <span key={member.id}>
-                {member.name} ({member.role}){" "}
-              </span>
-            ))}
-          </Descriptions.Item>
-        </Descriptions>
-
-        <Title level={4}>Tasks</Title>
-        {/* Task list would go here, potentially with its own component */}
-
-        <Space style={{ marginTop: 20 }}>
-          <Button type="primary">Add New Task</Button>
-        </Space>
-      </Card>
     </Dashboard>
   );
 };

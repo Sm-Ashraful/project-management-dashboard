@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "title": "Design wireframes",
+    "description": "Create initial wireframes for the landing page and dashboard.",
+    "dueDate": "2023-05-20",
+    "status": "Pending"
+  },
+  {
+    "id": 2,
+    "title": "Conduct user research",
+    "description": "Interview target users to understand pain points and needs.",
+    "dueDate": "2023-05-30",
+    "status": "In Progress"
+  },
+  {
+    "id": 3,
+    "title": "Develop frontend components",
+    "description": "Build reusable UI components using React.",
+    "dueDate": "2023-06-15",
+    "status": "Pending"
+  },
+  {
+    "id": 4,
+    "title": "Implement backend API",
+    "description": "Create REST API endpoints for data storage and retrieval.",
+    "dueDate": "2023-06-20",
+    "status": "Completed"
+  }
+]

@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { Col, Row } from "antd";
 import { HomeFilled } from "@ant-design/icons";
 import Project from "@/UI/Overview/Project";
+import Task from "@/UI/Overview/Tasks";
 
 export default function Home() {
   const [greeting, setGreeting] = useState("");
@@ -50,6 +51,7 @@ export default function Home() {
           </Flex>
         </Col>
         <Project />
+        <Task />
       </Row>
     </Dashboard>
   );
