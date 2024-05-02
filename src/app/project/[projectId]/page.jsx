@@ -96,7 +96,7 @@ const ProjectDetailsPage = ({ params }) => {
             </Flex>
             <Flex justify="end" align="center" gap={3}>
               <p className="font-semibold">Team</p>
-              {project?.teamMembers.map((person) => {
+              {projectData?.teamMembers.map((person) => {
                 return (
                   <Avatar key={person.id}>{person.name.slice(0, 3)}</Avatar>
                 );
